@@ -1,21 +1,28 @@
 import React from 'react';
 
-const Card = ({ id, name, img }) => {
-  console.log(img);
-  const immages = [];
-  for (let key in img) {
-    if (img[key] && (key !== 'other') & (key !== 'versions')) {
-      immages.push(<img key={key} src={img[key]} alt='' />);
-    }
-  }
+const Card = ({ id, name, img, onFlip, isFlipped }) => {
+  const nameWithUpperCase = name.charAt(0).toUpperCase() + name.slice(1);
 
   return (
-    <div className='card'>
-      <div>{id}</div>
-      <div>{name}</div>
-      <div className='img'>
-        {/* <img src={img} alt='' /> */}
-        {immages.map((el) => el)}
+    <div
+      className={`flip-container ${isFlipped ? '' : 'flip'}`}
+      onClick={onFlip}
+    >
+      <div className='card-flipper'>
+        <div className='card card-front'>
+          <div className='title'>
+            {id}
+            <span className='font-600'> {nameWithUpperCase}</span>
+          </div>
+          <div className='img-box'>
+            <img
+              className='img-big'
+              src={img.other['official-artwork'].front_default}
+              alt=''
+            />
+          </div>
+        </div>
+        <div className='card card-back'></div>
       </div>
     </div>
   );
